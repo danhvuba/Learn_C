@@ -1,0 +1,9 @@
+7072 6F70 6572 7479
+property
+times: = 253.373186 
+real    4m13.385s
+user    4m13.375s
+sys     0m0.000s
+
+
+-DNDEBUG -O3 -lpthread -o

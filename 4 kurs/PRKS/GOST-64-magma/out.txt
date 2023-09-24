@@ -1,0 +1,3 @@
+cipher text:   4ee901e5c2d8ca3d  ee92de8168ebaa09  4ee901e5c2d8ca3d  ee92de8168ebaa09  
+
+decrypt text:  fedcba9876543210  afedcba987654321  fedcba9876543210  afedcba987654321  
