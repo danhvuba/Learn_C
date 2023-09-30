@@ -18,8 +18,15 @@ array           0-1-2.....
 number in bit:  .... bit[1]-bit[0]
 
 
+/// read text messenger
 fread -> char <=> fscanf("%c",uint8_t) 
 aa -> a -- a
 
-fscanf("%2hhx",uint8_t)
+// Read contents of a file as hex in C
+fscanf("%2hhx",uint8_t) // 2 character store in hh (unsigned char)  x hex
 aa -> 0xaa
+
+// read file like hex editor
+uint8_t c=fgetc(file);
+"rb"
+read 1 byte

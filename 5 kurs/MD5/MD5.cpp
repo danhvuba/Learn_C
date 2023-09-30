@@ -212,11 +212,13 @@ void MD5(uint8_t digest[16], uint8_t *messenger, uint64_t length)
 int main(int argc, char *argv[])
 {
     ///////////////////////// 1
-    if (argc < 3)
-    {
-        printf("error\n");
-        return 1;
-    }
+    // if (argc < 3)
+    // {
+    //     printf("error\n");
+    //     return 1;
+    // }
+    argv[1]=(char*)"1.txt";
+    argv[2]=(char*)"2.txt";
     //////////////////// 1
     {
         // read file
