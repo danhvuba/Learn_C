@@ -299,8 +299,7 @@ int rank(uint8_t *Matrix, int row)
         }
         
     }
-    
-
+    return 0;
 }
 
 // result in A matrix*matrix

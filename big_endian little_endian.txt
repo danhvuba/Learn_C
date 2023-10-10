@@ -24,6 +24,7 @@ aa -> a -- a
 
 // Read contents of a file as hex in C
 fscanf("%2hhx",uint8_t) // 2 character store in hh (unsigned char)  x hex
+// %8lx
 aa -> 0xaa
 
 // read file like hex editor
