@@ -132,7 +132,6 @@ const uint8_t *C[12] = {c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12};
 // u8: a7... a0 x A: a[i] * A = u64[i]
 uint64_t mul_table[8][256];
 
-
 void set_mul_table()
 {
     for (int i = 0; i < 8; i++)
@@ -317,56 +316,49 @@ void Streebog(uint8_t *digest, uint8_t *Mess, int length, int n)
         memcpy(digest, ctx.h, n / 8);
 }
 
-int main()
+int main(int argc, char *argv[])
 {
     set_mul_table();
-    char filePath[] = "m2.txt";
-
+    ///////////////////////////////////
+    if (argc != 3)
     {
-        int n = 512;
-        // read file
-        FILE *file;
-        file = fopen( filePath, "rb");
-        fseek(file, 0L, SEEK_END);
-        int length = ftell(file) / 2; // 2 charater = 1 byte
-        fseek(file, 0L, SEEK_SET);
-        uint8_t *m = malloc(length);
-        for (int i = 0; i < length; i++)
-        {
-            fscanf(file, "%2hhx", m + length - 1 - i);
-        }
-        // result: digest d[63] ... d[0]
-        uint8_t digest[n / 8];
-        Streebog(digest, m, length, n);
-        printf("hash %d:\n", n);
-        for (int i = 0; i < (n / 8); i++)
-        {
-            printf("%02x", digest[n / 8 - 1 - i]);
-        }
+        printf("error\n");
+        printf(".\\Streebog.exe <file_name> 512/256\n");
+        return -1;
     }
 
+    char *filePath = argv[1];
+    int n;
+    if (strcmp(argv[2], "512") == 0)
+        n = 512;
+    else if (strcmp(argv[2], "256") == 0)
+        n = 256;
+    else
     {
-        int n = 256;
-        // read file
-        FILE *file;
-        file = fopen(filePath, "rb");
-        fseek(file, 0L, SEEK_END);
-        int length = ftell(file) / 2; // 2 charater = 1 byte
-        fseek(file, 0L, SEEK_SET);
-        uint8_t *m = malloc(length);
-        for (int i = 0; i < length; i++)
-        {
-            fscanf(file, "%2hhx", m + length - 1 - i);
-        }
-
-        printf("hash %d:\n", n);
-        // result: digest d[63] ... d[0]
-        uint8_t digest[n / 8];
-        Streebog(digest, m, length, n);
-
-        for (int i = 0; i < (n / 8); i++)
-        {
-            printf("%02x", digest[n / 8 - 1 - i]);
-        }
+        printf("error\n");
+        printf(".\\Streebog.exe <file_name> 512/256\n");
+        return -1;
     }
+
+    /////////////////////////////////////
+    // read file
+    FILE *file;
+    file = fopen(filePath, "rb");
+    fseek(file, 0L, SEEK_END);
+    int length = ftell(file); // byte
+    fseek(file, 0L, SEEK_SET);
+    uint8_t *m = malloc(length);
+    for (int i = 0; i < length; i++)
+    {
+        m[length - 1 - i] = (uint8_t)fgetc(file);
+    }
+    // result: digest d[63] ... d[0]
+    uint8_t digest[n / 8];
+    Streebog(digest, m, length, n);
+    printf("hash %d:\n", n);
+    for (int i = 0; i < (n / 8); i++)
+    {
+        printf("%02x", digest[n / 8 - 1 - i]);
+    }
+    return 0;
 }

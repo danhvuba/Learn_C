@@ -271,52 +271,62 @@ int main()
         }
     }
 
-    //    255------128  127------0
-    //       Key[0]       Key[1]
-    u8 **key = new u8 *[2];
-    key[0] = new u8[16];
-    key[1] = new u8[16];
-    char path[20] = "key.txt";
-    Take_key(path, key);
-    printf("key:\n");
-    Print_128bit(key[0]);
-    Print_128bit(key[1]);
-
-    // Deployment_key = K1.. K10 (128 bit)
-    u8 **K = new u8 *[10];
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 256; i++)
     {
-        K[i] = new u8[16];
-    }
-    Deployment_key(K, key);
-    printf("\nK[ ]");
-    for (int i = 0; i < 10; i++)
-    {
-        printf("\n  %d :  ", i);
-        Print_128bit(K[i]);
+        printf("{");
+        for (int j = 0; j < 256; j++)
+        {
+            printf("0x%02x, ",poleFx[i][j]);
+        }
+        printf("},\n");
     }
 
-    u8 *text = new u8[16];
-    char path_text[20] = "text.txt";
-    Take_text(path_text, text);
-    printf("\n\ntext:           ");
-    Print_128bit(text);
+    // //    255------128  127------0
+    // //       Key[0]       Key[1]
+    // u8 **key = new u8 *[2];
+    // key[0] = new u8[16];
+    // key[1] = new u8[16];
+    // char path[20] = "key.txt";
+    // Take_key(path, key);
+    // printf("key:\n");
+    // Print_128bit(key[0]);
+    // Print_128bit(key[1]);
 
-    // encrypt
-    printf("\nencrypt text:   ");
-    //////////////////////////////////////////////////
-    start = clock();
-    Encrypt(text, K);
-    end = clock();
-    time_use = (double)(end - start) / CLOCKS_PER_SEC;
+    // // Deployment_key = K1.. K10 (128 bit)
+    // u8 **K = new u8 *[10];
+    // for (int i = 0; i < 10; i++)
+    // {
+    //     K[i] = new u8[16];
+    // }
+    // Deployment_key(K, key);
+    // printf("\nK[ ]");
+    // for (int i = 0; i < 10; i++)
+    // {
+    //     printf("\n  %d :  ", i);
+    //     Print_128bit(K[i]);
+    // }
 
-    Print_128bit(text);
-    cout << endl
-         << "times: " << time_use << endl;
+    // u8 *text = new u8[16];
+    // char path_text[20] = "text.txt";
+    // Take_text(path_text, text);
+    // printf("\n\ntext:           ");
+    // Print_128bit(text);
 
-    // decrypt
-    printf("\ndecrypt text:   ");
-    Decrypt(text, K);
-    Print_128bit(text);
-    printf("\n");
+    // // encrypt
+    // printf("\nencrypt text:   ");
+    // //////////////////////////////////////////////////
+    // start = clock();
+    // Encrypt(text, K);
+    // end = clock();
+    // time_use = (double)(end - start) / CLOCKS_PER_SEC;
+
+    // Print_128bit(text);
+    // cout << endl
+    //      << "times: " << time_use << endl;
+
+    // // decrypt
+    // printf("\ndecrypt text:   ");
+    // Decrypt(text, K);
+    // Print_128bit(text);
+    // printf("\n");
 }
