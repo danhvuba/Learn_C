@@ -350,6 +350,7 @@ int main(int argc, char *argv[])
     uint8_t *m = malloc(length);
     for (int i = 0; i < length; i++)
     {
+        // inverse .... 2 1 0
         m[length - 1 - i] = (uint8_t)fgetc(file);
     }
     // result: digest d[63] ... d[0]

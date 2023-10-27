@@ -17,7 +17,7 @@ Byte content  | 0x10 | 0x32 | 0x54 | 0x76 |
 array           0-1-2.....
 number in bit:  .... bit[1]-bit[0]
 
-
+////////////////////////////////////////////////////
 /// read text messenger
 fread -> char <=> fscanf("%c",uint8_t) 
 aa -> a -- a
@@ -31,3 +31,16 @@ aa -> 0xaa
 uint8_t c=fgetc(file);
 "rb"
 read 1 byte
+
+
+
+////////////////////////////////////////////////////////
+// malloc, realloc
+uint8_t *m = (uint8_t *)malloc(1);
+Test(&m);
+void Test(uint8_t **m)
+{
+    // neu ko du cho chua se tao mot dia chi moi
+    *m = (uint8_t *)realloc(*m, 2);
+    (*m)[0] = 1;
+}

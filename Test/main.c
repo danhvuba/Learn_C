@@ -2,14 +2,14 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+void Test(uint8_t **m)
+{
+    *m = (uint8_t *)realloc(*m, 2);
+    (*m)[0] = 1;
+}
+
 int main()
 {
-    uint8_t *x = (uint8_t *)malloc(3 );
-    x[0] = 0;
-    x[1] = 1;
-    x[2] = 2;
-    x=x+1;
-    printf("%d\n",x[0]);
-    uint8_t *c=(uint8_t*)realloc(x+1,4);
-    printf("aaa%d\n",x[0]);
+    uint8_t *m = (uint8_t *)malloc(1);
+    Test(&m);
 }
