@@ -1,0 +1,24 @@
+////////////////////////////
+    // FILE *file = fopen(filename, "rb");
+    // u64 L = size_of_file(file);
+    // u8 *message = new u8[L];
+    // vector<u8> mess(L);
+    // fread(message, sizeof(u8), L, file);
+    // for (int i = 0; i < L; i++)
+    // {
+    //     mess[i] = message[i];
+    // }
+
+    /////////////////////////////////////
+    // read file
+    FILE *file;
+    file = fopen(filePath, "rb");
+    fseek(file, 0L, SEEK_END);
+    int length = ftell(file); // byte
+    fseek(file, 0L, SEEK_SET);
+    uint8_t *m = malloc(length);
+    for (int i = 0; i < length; i++)
+    {
+        // inverse .... 2 1 0
+        m[length - 1 - i] = (uint8_t)fgetc(file);
+    }

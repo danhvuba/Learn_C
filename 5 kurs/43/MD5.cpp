@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <string>
-#include <string.h>
+// #include <string>
+// #include <string.h>
 
 // little endian computer
 #define LITTLE_ENDIAN
@@ -224,42 +224,81 @@ uint32_t MD5New(uint8_t *messenger, uint64_t length)
     return res;
 }
 
-int main()
+uint8_t *readFile(char *filePath, int &length)
+{
+    FILE *file;
+    file = fopen(filePath, "rb");
+    fseek(file, 0L, SEEK_END);
+    length = ftell(file); // byte
+    fseek(file, 0L, SEEK_SET);
+    uint8_t *m = (uint8_t *)malloc(length);
+    fread(m, sizeof(uint8_t), length, file);
+    fclose(file);
+    return m;
+}
+
+void findHash(uint8_t *m1, int l1, uint8_t *m2, int l2, int &a, int &b, int n)
 {
     // space = 0x20
-    std::string mess = "Ву Ба Зань, к зачету необходимо готовится";
-    std::string mess_ = "Ву Ба Зань, вам зачет автомат";
-    int l = mess.size();
-    int l_ = mess_.size();
+    uint32_t h1[n];
+    uint32_t h2[n];
 
-    int n = 100000;
-    uint8_t m[l + n - 1];
-    uint8_t m_[l_ + n - 1];
-
-    uint32_t h[n];
-    uint32_t h_[n];
-
-    memcpy(m, mess.c_str(), l);
-    memset(m + l, 0x20, n - 1);
-
-    memcpy(m_, mess_.c_str(), l_);
-    memset(m_ + l_, 0x20, n - 1);
-
+    printf("computing hash...\n");
     for (int i = 0; i < n; i++)
     {
-        h[i] = MD5New(m, l + i);
-        h_[i] = MD5New(m_, l_ + i);
+        h1[i] = MD5New(m1, l1 + i);
+        h2[i] = MD5New(m2, l2 + i);
     }
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < n; j++)
         {
-            if (h[i] == h_[j])
+            if (h1[i] == h2[j])
             {
                 printf("i = %d, j = %d", i, j);
+                printf("\nresult in res1.txt, res2.txt\n");
+                a = i;
+                b = j;
+                return;
             }
         }
     }
+    printf("\nnot found in %d\n", n);
+}
 
+void writeFile(char *filePath, uint8_t *m, int l, int x)
+{
+    FILE *file;
+    file = fopen(filePath, "wb");
+    fwrite(m, sizeof(uint8_t), l + x, file);
+    fclose(file);
+}
+
+int main(int argc, char *argv[])
+{
+    if (argc!=3)
+    {
+        printf("--- error ---\n");
+        printf("# .\\MD5 <file1> <file2>\n");
+        printf("--- result in res1.txt, res2.txt ---\n");
+        return 1;
+    }
+    
+    int n = 0x10000;
+    int a, b;
+    // space = 0x20
+    int l1, l2;
+    printf("reading file...\n");
+    uint8_t *m1 = readFile(argv[1], l1);
+    uint8_t *m2 = readFile(argv[2], l2);
+
+    m1 = (uint8_t *)realloc(m1, (l1 + n - 1));
+    memset(m1 + l1, 0x20, n - 1);
+    m2 = (uint8_t *)realloc(m2, (l1 + n - 1));
+    memset(m2 + l2, 0x20, n - 1);
+    findHash(m1, l1, m2, l2, a, b, n);
+
+    writeFile((char *)"res1.txt", m1, l1, a);
+    writeFile((char *)"res2.txt", m2, l2, b);
     return 0;
 }
