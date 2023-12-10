@@ -32,7 +32,10 @@ aa -> 0xaa
 // read file like hex editor
 uint8_t c=fgetc(file);
 "rb"
-read 1 byte
+uint8_t fread(dst,1,size,file) /// only for once line
+
+// write to file
+fwrite(src,1,size,file);
 
 
 

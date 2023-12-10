@@ -203,20 +203,14 @@ static void kuznyechik_decrypt(const struct kuznyechik_ctx *ctx, uint8_t *out, c
 void getKey(uint8_t *key, char *keyPath)
 {
     FILE *file = fopen(keyPath, "rb");
-    for (int i = 0; i < 32; i++)
-    {
-        key[i] = fgetc(file);
-    }
+    fread(key, 1, 32, file);
     fclose(file);
 }
 
 void writeFile(char *filePath, uint8_t *src, int size)
 {
     FILE *file = fopen(filePath, "wb");
-    for (int i = 0; i < size; i++)
-    {
-        fputc(src[i], file);
-    }
+    fwrite(src, 1, size, file);
     fclose(file);
 }
 
@@ -258,7 +252,7 @@ int main(int argc, char *argv[])
     struct kuznyechik_ctx ctx;
     kuznyechik_set_key(&ctx, key, 32);
     uint8_t ct[16];
-    kuznyechik_encrypt(&ctx,ct,pt);
+    kuznyechik_encrypt(&ctx, ct, pt);
 
     printf("\nct:  ");
     for (int i = 0; i < 16; i++)
@@ -267,7 +261,7 @@ int main(int argc, char *argv[])
     }
 
     uint8_t pct[16];
-    kuznyechik_decrypt(&ctx,pct,ct);
+    kuznyechik_decrypt(&ctx, pct, ct);
     printf("\npct:  ");
     for (int i = 0; i < 16; i++)
     {
