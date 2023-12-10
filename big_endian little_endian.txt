@@ -20,6 +20,8 @@ number in bit:  .... bit[1]-bit[0]
 ////////////////////////////////////////////////////
 /// read text messenger
 fread -> char <=> fscanf("%c",uint8_t) 
+fgets(buff, 65, file);
+ fread(buff,1,64,file);
 aa -> a -- a
 
 // Read contents of a file as hex in C
@@ -44,3 +46,9 @@ void Test(uint8_t **m)
     *m = (uint8_t *)realloc(*m, 2);
     (*m)[0] = 1;
 }
+
+
+
+mang dong ko dc dung 
+int var[value] !!!!!!!!!!!!!!!!!
+phai cap phat dong malloc, calloc...

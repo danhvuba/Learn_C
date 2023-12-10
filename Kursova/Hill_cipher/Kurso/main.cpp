@@ -5,13 +5,13 @@
 int main()
 {
     clock_t times = clock();
-    // // text
-    // string str;
-    // str = GetText("novel1.txt");
-    // // str = GetText("tex_text.txt");
-    // Forbidden_Gram(str, "forbidden.txt");
-    // Out_Bigram(str, "bigram.txt");
-    // vector<float> fre1 = Frequency_Bigram(str);
+    // text
+    string str;
+    str = GetText("novel1.txt");
+    // str = GetText("tex_text.txt");
+    Forbidden_Gram(str, "forbidden.txt");
+    Out_Bigram(str, "bigram.txt");
+    vector<float> fre1 = Frequency_Bigram(str);
 
     vector<float> fre;
     fstream In;
@@ -33,9 +33,9 @@ int main()
 
     // key
     Matrix A(3, 26);
-    A.Mtr[0] = new int[3]{2, 3, 1};
-    A.Mtr[1] = new int[3]{3, 1, 0};
-    A.Mtr[2] = new int[3]{1, 0, 0};
+    A.Mtr[0] = new int[3]{3, 0, 0};
+    A.Mtr[1] = new int[3]{0, 3, 0};
+    A.Mtr[2] = new int[3]{0, 0, 3};
 
     // cryption
     string text = GetText("Text.txt");

@@ -2,12 +2,20 @@
     "cSpell.words": [
         "builtint",
         "chua",
+        "expandkey",
         "fgetc",
         "fread",
         "fscanf",
+        "KEYLENGTH",
+        "kwords",
         "malloc",
+        "nround",
         "realloc",
-        "Streebog"
+        "sbox",
+        "Streebog",
+        "subshift",
+        "subw",
+        "xoring"
     ],
     "files.associations": {
         "stdint.h": "c",
@@ -17,6 +25,8 @@
         "string": "cpp",
         "unordered_map": "cpp",
         "unordered_set": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "string_view": "cpp",
+        "regex": "cpp"
     }
 }
