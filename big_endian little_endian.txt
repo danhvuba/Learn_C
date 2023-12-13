@@ -38,6 +38,10 @@ uint8_t fread(dst,1,size,file) /// only for once line
 fwrite(src,1,size,file);
 
 
+fread, fwrite  point = const
+fputs, fgets point---->
+
+
 
 ////////////////////////////////////////////////////////
 // malloc, realloc
